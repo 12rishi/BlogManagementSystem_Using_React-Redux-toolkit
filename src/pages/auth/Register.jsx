@@ -14,7 +14,6 @@ const Register = () => {
   };
   useEffect(() => {
     if (status === STATUSES.SUCCESS) {
-      console.log(status);
       dispatch(setStatus(null));
       navigate("/login");
     }

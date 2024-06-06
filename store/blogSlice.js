@@ -14,6 +14,7 @@ const blogSlice = createSlice({
   reducers: {
     setinputData: (state, action) => {
       state.inputData = action.payload;
+      console.log(state.inputData);
     },
     setstatus: (state, action) => {
       state.status = action.payload;
@@ -70,7 +71,6 @@ export function fetchBlog() {
 }
 //delete blog
 export function deleteBlog(id) {
-  console.log(id);
   return async function delteBlogThunk(dispatch) {
     dispatch(setstatus(STATUSES.LOADING));
     try {
@@ -91,18 +91,14 @@ export function editBlog(data, id) {
     dispatch(setstatus(STATUSES.LOADING));
 
     try {
-      const response = await API.patch(`blog/${id}`, data, {
-        headers: {
-          "Authorization ": localStorage.getItem("token"),
-        },
-      });
+      const response = await API.patch(`blog/${id}`, data);
       if (response.status === 200) {
         dispatch(setEditStatus(true));
       } else {
         dispatch(setEditStatus(null));
       }
     } catch (error) {
-      alert(error);
+      alert(error?.res?.data?.message);
       dispatch(setEditStatus(null));
     }
   };

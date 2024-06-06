@@ -8,8 +8,7 @@ import Spinner from "./components/spinner/Spinner";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { inputData, deleteStatus } = useSelector((store) => store.blog);
-  console.log(inputData);
+  const { inputData } = useSelector((store) => store.blog);
 
   useEffect(() => {
     dispatch(fetchBlog());

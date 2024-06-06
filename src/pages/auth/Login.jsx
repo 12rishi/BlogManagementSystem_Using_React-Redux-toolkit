@@ -11,13 +11,12 @@ const Login = () => {
   const { user, status, token } = useSelector((store) => store.auth);
 
   const handleLogin = (data) => {
-    console.log(status);
     dispatch(login(data));
   };
   useEffect(() => {
     if (status === STATUSES.SUCCESS) {
       localStorage.setItem("jwt", token);
-      console.log(status);
+
       navigate("/");
       dispatch(setStatus(null));
     }

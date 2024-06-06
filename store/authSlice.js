@@ -15,6 +15,7 @@ const authSlice = createSlice({
     },
     setUser(state, action) {
       state.user = action.payload;
+      console.log(state.user);
     },
     setToken(state, action) {
       state.token = action.payload;
@@ -29,6 +30,7 @@ export function register(data) {
     dispatch(setStatus(STATUSES.LOADING));
     try {
       const response = await API.post("register", data);
+    
       if (response.status === 201) {
         dispatch(setUser(data));
         dispatch(setStatus(STATUSES.SUCCESS));
@@ -45,7 +47,6 @@ export function login(data) {
     dispatch(setStatus(STATUSES.LOADING));
     try {
       const response = await API.post("login", data);
-      console.log(response);
 
       if (response.status === 200 && response?.data.token) {
         dispatch(setToken(response.data.token));
