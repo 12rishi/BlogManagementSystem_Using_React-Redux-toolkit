@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setToken } from "../../../store/authSlice";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
@@ -11,6 +11,7 @@ const Navbar = () => {
   const [animationPlayed, setAnimationPlayed] = useState(
     sessionStorage.getItem("navbarAnimationPlayed") === "true"
   );
+  const navigate = useNavigate();
 
   useGSAP(() => {
     if (!animationPlayed) {
@@ -32,13 +33,17 @@ const Navbar = () => {
   };
   //when token state is changed or triggered
   useEffect(() => {
-    console.log("i have been called");
     if (token) {
       setValue("Logout");
     } else {
       setValue("Register");
     }
   }, [token]);
+  useEffect(() => {
+    if (!token) {
+      return navigate("/login");
+    }
+  }, [value]);
   //execute on initial render
   useEffect(() => {
     if (localStorage.getItem("jwt")) {
